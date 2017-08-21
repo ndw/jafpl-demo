@@ -1,0 +1,29 @@
+// A simple arithmetic expression grammar. Shamelessly cribbed from the XPath grammar.
+// This is designed to be fed to http://www.bottlecaps.de/rex/
+
+Expression            ::= AdditiveExpr EOF
+
+ParenthesizedExpr     ::= '(' AdditiveExpr ')'
+
+AdditiveExpr          ::= MultiplicativeExpr ( ( '+' | '-' ) MultiplicativeExpr )*
+MultiplicativeExpr    ::= UnaryExpr ( ( '*' | '/' | '%' ) UnaryExpr )*
+
+UnaryExpr             ::= ( '-' | '+' )? ValueExpr
+
+ValueExpr             ::= Literal
+                          | VarRef
+                          | ParenthesizedExpr
+                          | FunctionCall
+
+FunctionCall          ::= Name '(' ( AdditiveExpr ( ',' AdditiveExpr )* )? ')'
+
+VarRef                ::= '$' Name
+
+WhiteSpace            ::= ( S^WhiteSpace )+   /* ws: definition */
+
+<?TOKENS?>
+
+EOF                   ::= $
+Literal               ::= [0-9]+
+Name                  ::= [_a-zA-Z] [-_a-zA-Z0-9]*
+S                     ::= ( #x0020 | #x0009 | #x000D | #x000A )+
