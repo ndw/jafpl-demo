@@ -1,6 +1,6 @@
 package com.jafpldemo
 
-import com.jafpl.steps.{Consumer, PortBindingSpecification, Step}
+import com.jafpl.steps.{PortBindingSpecification, Step, StepDataProvider}
 
 class DefaultStep  extends Step {
   override def inputSpec: PortBindingSpecification = PortBindingSpecification.ANY
@@ -11,9 +11,9 @@ class DefaultStep  extends Step {
     // nop
   }
 
-  protected var consumer: Option[Consumer] = None
+  protected var consumer: Option[StepDataProvider] = None
 
-  override def setConsumer(consumer: Consumer): Unit = {
+  override def setConsumer(consumer: StepDataProvider): Unit = {
     this.consumer = Some(consumer)
   }
 

@@ -4,7 +4,7 @@ import com.jafpldemo.DefaultStep
 
 import scala.collection.mutable.ListBuffer
 
-class BufferedConsumer extends DefaultStep {
+class BufferedSink extends DefaultStep {
   val _items: ListBuffer[Any] = ListBuffer.empty[Any]
 
   def items: List[Any] = _items.toList

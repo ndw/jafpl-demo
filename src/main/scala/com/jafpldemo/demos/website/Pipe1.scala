@@ -1,64 +1,103 @@
-package com.jafpldemo.demos.calc
+package com.jafpldemo.demos.website
 
 import java.io.{File, PrintWriter}
 
-import com.jafpl.graph.{ContainerStart, Graph, Node, Binding}
+import com.jafpl.graph.{Binding, Graph, Node}
 import com.jafpl.runtime.GraphRuntime
 import com.jafpl.util.DefaultErrorListener
 import com.jafpldemo.config.PrimitiveRuntimeConfiguration
+import com.jafpldemo.demos.calc.ExpressionParser
 import com.jafpldemo.demos.calc.steps.{BinaryOp, FCall, Literal, UnaryOp, VarOp}
 import com.jafpldemo.demos.calc.util.{ExprNode, TreeBuilder}
+import com.jafpldemo.demos.website.Driver.pipeline
 import com.jafpldemo.io.BufferedConsumer
+import com.jafpldemo.steps.Identity
 
 import scala.collection.mutable
 
 object Driver extends App {
-  // N.B. As a matter of convenience, I'm letting these be globals.
-  // Bad programmer.
-
-  // Setup our graph object
-  private val config = new PrimitiveRuntimeConfiguration()
-  private val graph = new Graph(new DefaultErrorListener())
-
-  // Make our pipeline
-  private val pipeline = graph.addPipeline()
-
-  // Remember the variable bindings we've made
+  private var config = new PrimitiveRuntimeConfiguration()
+  private var graph = new Graph(new DefaultErrorListener())
+  private var pipeline = graph.addPipeline()
   private val varbind = mutable.HashMap.empty[String, Binding]
 
-  main()
+  figure0()
+  figure1()
+  pipe1()
+  pipe2()
 
-  private def main(): Unit = {
+  private def figure0(): Unit = {
+    config = new PrimitiveRuntimeConfiguration()
+    graph = new Graph(new DefaultErrorListener())
+    pipeline = graph.addPipeline()
+    varbind.clear
+
+    val doSomething     = pipeline.addAtomic(new Identity(), "Do_Something")
+    val doSomethingElse = pipeline.addAtomic(new Identity(), "Do_Something_Else")
+
+    graph.addInput(pipeline, "source")
+    graph.addOutput(pipeline, "result")
+    graph.addEdge(pipeline, "source", doSomething, "source")
+    graph.addEdge(pipeline, "source", doSomethingElse, "source")
+
+    graph.addEdge(doSomething, "result", pipeline, "result")
+    graph.addEdge(doSomethingElse, "result", pipeline, "result")
+
+    val pw = new PrintWriter(new File("figure0.xml"))
+    pw.write(graph.asXML.toString)
+    pw.close()
+  }
+
+  private def figure1(): Unit = {
+    config = new PrimitiveRuntimeConfiguration()
+    graph = new Graph(new DefaultErrorListener())
+    pipeline = graph.addPipeline()
+    varbind.clear
+
+    val doSomething     = pipeline.addAtomic(new Identity(), "Do_Something")
+    val doSomethingElse = pipeline.addAtomic(new Identity(), "Do_Something_Else")
+
+    graph.addInput(pipeline, "source")
+    graph.addOutput(pipeline, "result")
+    graph.addEdge(pipeline, "source", doSomething, "source")
+    graph.addEdge(pipeline, "source", doSomethingElse, "source")
+
+    graph.addEdge(doSomething, "result", pipeline, "result")
+    graph.addEdge(doSomethingElse, "result", pipeline, "result")
+
+    graph.close()
+
+    val pw = new PrintWriter(new File("figure1.xml"))
+    pw.write(graph.asXML.toString)
+    pw.close()
+  }
+
+  private def pipe1(): Unit = {
+    config = new PrimitiveRuntimeConfiguration()
+    graph = new Graph(new DefaultErrorListener())
+    pipeline = graph.addPipeline()
+    varbind.clear
+
     val bindings = mutable.HashMap.empty[String, Long]
-    var dumpGraph: Option[String] = None
-    var expression = ""
+    var dumpGraph: Option[String] = Some("pipe2.xml")
+    var expression = "(1+2)*$foo"
+    bindings.put("foo", 3)
+    mathExample(bindings, dumpGraph, expression)
+  }
 
-    var argpos = 0
-    while (argpos < args.length) {
-      val arg = args(argpos)
-      if (arg.startsWith("-g")) {
-        dumpGraph = Some(arg.substring(2))
-      } else if (arg.startsWith("-v")) {
-        val bind = arg.substring(2)
-        val pos = bind.indexOf("=")
-        if (pos > 0) {
-          bindings.put(bind.substring(0, pos), bind.substring(pos + 1).toLong)
-        } else {
-          throw new RuntimeException("Unparsable variable binding: " + arg)
-        }
-      } else {
-        expression += " " + arg
-      }
-      argpos += 1
-    }
+  private def pipe2(): Unit = {
+    config = new PrimitiveRuntimeConfiguration()
+    graph = new Graph(new DefaultErrorListener())
+    pipeline = graph.addPipeline()
+    varbind.clear
 
-    expression = expression.trim()
+    val bindings = mutable.HashMap.empty[String, Long]
+    var dumpGraph: Option[String] = Some("pipe1.xml")
+    var expression = "(1+2)+(3+4+5)"
+    mathExample(bindings, dumpGraph, expression)
+  }
 
-    if (expression == "") {
-      println("Usage: [-vname=value] expression")
-      System.exit(1)
-    }
-
+  private def mathExample(bindings: mutable.HashMap[String,Long], dumpGraph: Option[String], expression: String): Unit = {
     println("Evaluate: " + expression)
 
     // Build a tree from the expression
