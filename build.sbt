@@ -8,7 +8,7 @@ resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
 resolvers += "Local Maven Repository" at "file://home/ndw/.m2/repository"
 
 libraryDependencies ++= Seq(
-  "com.jafpl" % "jafpl_2.12" % "0.0.6",
+  "com.jafpl" % "jafpl_2.12" % "0.0.7",
   "org.apache.logging.log4j" % "log4j-api" % "2.1",
   "org.apache.logging.log4j" % "log4j-core" % "2.1",
   "org.apache.logging.log4j" % "log4j-slf4j-impl" % "2.1",

@@ -1,11 +1,11 @@
 package com.jafpldemo.demos.calc.steps
 
-import com.jafpl.steps.PortBindingSpecification
+import com.jafpl.steps.PortSpecification
 import com.jafpldemo.DefaultStep
 
 class VarOp(op: String) extends DefaultStep {
-  override def inputSpec: PortBindingSpecification = PortBindingSpecification.NONE
-  override def outputSpec: PortBindingSpecification = PortBindingSpecification.RESULT
+  override def inputSpec: PortSpecification = PortSpecification.NONE
+  override def outputSpec: PortSpecification = PortSpecification.RESULT
 
   var value: Long = 0
 

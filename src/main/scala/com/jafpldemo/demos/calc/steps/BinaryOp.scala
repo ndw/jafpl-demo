@@ -1,15 +1,15 @@
 package com.jafpldemo.demos.calc.steps
 
-import com.jafpl.steps.PortBindingSpecification
+import com.jafpl.steps.PortSpecification
 import com.jafpldemo.DefaultStep
 
 class BinaryOp(op: String) extends DefaultStep {
   var left: Long = 0
   var right: Long = 0
 
-  override def inputSpec: PortBindingSpecification =
-    new PortBindingSpecification(Map("left" -> "1", "right" -> "1"))
-  override def outputSpec: PortBindingSpecification = PortBindingSpecification.RESULT
+  override def inputSpec: PortSpecification =
+    new PortSpecification(Map("left" -> "1", "right" -> "1"))
+  override def outputSpec: PortSpecification = PortSpecification.RESULT
 
   override def receive(port: String, item: Any): Unit = {
     val number = item match {

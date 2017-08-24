@@ -1,11 +1,11 @@
 package com.jafpldemo.steps
 
-import com.jafpl.steps.PortBindingSpecification
+import com.jafpl.steps.PortSpecification
 import com.jafpldemo.DefaultStep
 
 class Producer(val items: List[String]) extends DefaultStep {
-  override def inputSpec = PortBindingSpecification.NONE
-  override def outputSpec = PortBindingSpecification.RESULTSEQ
+  override def inputSpec = PortSpecification.NONE
+  override def outputSpec = PortSpecification.RESULTSEQ
 
   def this(item: String) {
     this(List(item))

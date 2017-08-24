@@ -1,6 +1,6 @@
 package com.jafpldemo.demos.calc.steps
 
-import com.jafpl.steps.PortBindingSpecification
+import com.jafpl.steps.PortSpecification
 import com.jafpldemo.DefaultStep
 
 import scala.collection.mutable
@@ -8,9 +8,9 @@ import scala.collection.mutable
 class FCall(name: String) extends DefaultStep {
   private val args = mutable.ListBuffer.empty[Long]
 
-  override def inputSpec: PortBindingSpecification =
-    new PortBindingSpecification(Map("*" -> "*"))
-  override def outputSpec: PortBindingSpecification = PortBindingSpecification.RESULT
+  override def inputSpec: PortSpecification =
+    new PortSpecification(Map("*" -> "*"))
+  override def outputSpec: PortSpecification = PortSpecification.RESULT
 
   override def reset(): Unit = {
     args.clear()

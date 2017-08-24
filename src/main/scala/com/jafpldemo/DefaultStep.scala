@@ -1,11 +1,11 @@
 package com.jafpldemo
 
-import com.jafpl.steps.{PortBindingSpecification, Step, StepDataProvider}
+import com.jafpl.steps.{BindingSpecification, PortSpecification, Step, StepDataProvider}
 
 class DefaultStep  extends Step {
-  override def inputSpec: PortBindingSpecification = PortBindingSpecification.ANY
-  override def outputSpec: PortBindingSpecification = PortBindingSpecification.ANY
-  override def requiredBindings: Set[String] = Set()
+  override def inputSpec: PortSpecification = PortSpecification.ANY
+  override def outputSpec: PortSpecification = PortSpecification.ANY
+  override def bindingSpec: BindingSpecification = BindingSpecification.ANY
 
   override def receiveBinding(variable: String, value: Any): Unit = {
     // nop
@@ -18,6 +18,10 @@ class DefaultStep  extends Step {
   }
 
   override def receive(port: String, item: Any): Unit = {
+    // nop
+  }
+
+  override def initialize(): Unit = {
     // nop
   }
 

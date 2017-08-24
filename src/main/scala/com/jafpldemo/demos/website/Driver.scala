@@ -79,9 +79,8 @@ object Driver extends App {
     varbind.clear
 
     val bindings = mutable.HashMap.empty[String, Long]
-    var dumpGraph: Option[String] = Some("pipe2.xml")
-    var expression = "(1+2)*$foo"
-    bindings.put("foo", 3)
+    var dumpGraph: Option[String] = Some("pipe1.xml")
+    var expression = "(1+2)*(3+4+5)"
     mathExample(bindings, dumpGraph, expression)
   }
 
@@ -92,8 +91,9 @@ object Driver extends App {
     varbind.clear
 
     val bindings = mutable.HashMap.empty[String, Long]
-    var dumpGraph: Option[String] = Some("pipe1.xml")
-    var expression = "(1+2)+(3+4+5)"
+    var dumpGraph: Option[String] = Some("pipe2.xml")
+    var expression = "(1+2)*$foo"
+    bindings.put("foo", 3)
     mathExample(bindings, dumpGraph, expression)
   }
 
