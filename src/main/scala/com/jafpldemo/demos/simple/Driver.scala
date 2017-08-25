@@ -3,7 +3,8 @@ package com.jafpldemo.demos.simple
 import com.jafpl.graph.Graph
 import com.jafpl.runtime.GraphRuntime
 import com.jafpldemo.config.PrimitiveRuntimeConfiguration
-import com.jafpldemo.steps.{BufferedSink, Producer}
+import com.jafpldemo.examples.steps.Producer
+import com.jafpldemo.steps.BufferedSink
 
 object Driver extends App {
   val config = new PrimitiveRuntimeConfiguration()

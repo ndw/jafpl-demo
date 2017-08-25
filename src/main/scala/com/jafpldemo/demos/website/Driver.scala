@@ -9,9 +9,8 @@ import com.jafpldemo.config.PrimitiveRuntimeConfiguration
 import com.jafpldemo.demos.calc.ExpressionParser
 import com.jafpldemo.demos.calc.steps.{BinaryOp, FCall, Literal, UnaryOp, VarOp}
 import com.jafpldemo.demos.calc.util.{ExprNode, TreeBuilder}
-import com.jafpldemo.demos.website.Driver.pipeline
+import com.jafpldemo.examples.steps.Identity
 import com.jafpldemo.io.BufferedConsumer
-import com.jafpldemo.steps.Identity
 
 import scala.collection.mutable
 
