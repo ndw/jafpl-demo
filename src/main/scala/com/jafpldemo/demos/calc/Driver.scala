@@ -101,7 +101,7 @@ object Driver extends App {
 
     // Setup a consumer to grab the output
     val bc = new BufferedConsumer()
-    runtime.outputs("result").setProvider(bc)
+    runtime.outputs("result").setConsumer(bc)
 
     // Run it!
     runtime.run()

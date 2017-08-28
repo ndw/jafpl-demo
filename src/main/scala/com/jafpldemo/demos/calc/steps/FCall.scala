@@ -1,5 +1,6 @@
 package com.jafpldemo.demos.calc.steps
 
+import com.jafpl.messages.Metadata
 import com.jafpl.steps.PortSpecification
 import com.jafpldemo.DefaultStep
 
@@ -16,7 +17,7 @@ class FCall(name: String) extends DefaultStep {
     args.clear()
   }
 
-  override def receive(port: String, item: Any): Unit = {
+  override def receive(port: String, item: Any, metadata: Metadata): Unit = {
     val number = item match {
       case num: Long => num
       case _ => throw new RuntimeException("Not a number: " + item)
@@ -36,9 +37,9 @@ class FCall(name: String) extends DefaultStep {
 
   override def run(): Unit = {
     name match {
-      case "max" => consumer.get.send("result", args.max)
-      case "min" => consumer.get.send("result", args.min)
-      case "sum" => consumer.get.send("result", args.sum)
+      case "max" => consumer.get.receive("result", args.max, Metadata.NUMBER)
+      case "min" => consumer.get.receive("result", args.min, Metadata.NUMBER)
+      case "sum" => consumer.get.receive("result", args.sum, Metadata.NUMBER)
       case _ => throw new RuntimeException("Unexpected operation: " + name)
     }
   }

@@ -1,6 +1,8 @@
 package com.jafpldemo
 
-import com.jafpl.steps.{BindingSpecification, PortSpecification, Step, StepDataProvider}
+import com.jafpl.messages.Metadata
+import com.jafpl.runtime.RuntimeConfiguration
+import com.jafpl.steps.{BindingSpecification, DataConsumer, PortSpecification, Step}
 
 class DefaultStep  extends Step {
   override def inputSpec: PortSpecification = PortSpecification.ANY
@@ -11,17 +13,17 @@ class DefaultStep  extends Step {
     // nop
   }
 
-  protected var consumer: Option[StepDataProvider] = None
+  protected var consumer: Option[DataConsumer] = None
 
-  override def setConsumer(consumer: StepDataProvider): Unit = {
+  override def setConsumer(consumer: DataConsumer): Unit = {
     this.consumer = Some(consumer)
   }
 
-  override def receive(port: String, item: Any): Unit = {
+  override def receive(port: String, item: Any, metadata: Metadata): Unit = {
     // nop
   }
 
-  override def initialize(): Unit = {
+  override def initialize(config: RuntimeConfiguration): Unit = {
     // nop
   }
 

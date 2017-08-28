@@ -1,14 +1,15 @@
 package com.jafpldemo.examples.steps
 
 import com.jafpl.exceptions.StepException
+import com.jafpl.messages.Metadata
 import com.jafpl.steps.PortSpecification
 import com.jafpldemo.DefaultStep
 
 class Uppercase extends DefaultStep {
-  override def inputSpec = PortSpecification.SOURCE
-  override def outputSpec = PortSpecification.RESULT
+  override def inputSpec: PortSpecification = PortSpecification.SOURCE
+  override def outputSpec: PortSpecification = PortSpecification.RESULT
 
-  override def receive(port: String, item: Any): Unit = {
+  override def receive(port: String, item: Any, metadata: Metadata): Unit = {
     var words = ""
 
     item match {
@@ -32,6 +33,6 @@ class Uppercase extends DefaultStep {
       case _ => throw new StepException("UnexpectedType", s"Unexpected item type: $item")
     }
 
-    consumer.get.send("result", words)
+    consumer.get.receive("result", words, Metadata.STRING)
   }
 }

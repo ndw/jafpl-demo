@@ -1,5 +1,6 @@
 package com.jafpldemo.demos.calc.steps
 
+import com.jafpl.messages.Metadata
 import com.jafpl.steps.PortSpecification
 import com.jafpldemo.DefaultStep
 
@@ -20,6 +21,6 @@ class VarOp(op: String) extends DefaultStep {
   }
 
   override def run(): Unit = {
-    consumer.get.send("result", value)
+    consumer.get.receive("result", value, Metadata.BLANK)
   }
 }

@@ -1,6 +1,8 @@
 package com.jafpldemo.config
 
+import com.jafpl.messages.ItemMessage
 import com.jafpl.runtime.{ExpressionEvaluator, RuntimeConfiguration}
+import com.jafpl.steps.DataConsumer
 
 import scala.collection.mutable
 
@@ -42,12 +44,16 @@ class PrimitiveRuntimeConfiguration() extends RuntimeConfiguration() {
     }
   }
 
-  override def watchdogTimeout = {
+  override def watchdogTimeout: Long = {
     var timeout: Long = 1000
     val prop = Option(System.getProperty("com.xmlcalabash.watchdogTimeout"))
     if (prop.isDefined) {
       timeout = prop.get.toLong
     }
     timeout
+  }
+
+  override def deliver(message: ItemMessage, consumer: DataConsumer, port: String): Unit = {
+    consumer.receive(port, message.item, message.metadata)
   }
 }
