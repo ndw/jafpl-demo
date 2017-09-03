@@ -18,7 +18,7 @@ object Example6 extends App {
   val consumer = pipeline.addAtomic(new Consumer(), "consumer")
 
   graph.addEdge(producer, "result", loop, "source")
-  graph.addEdge(loop, "source", upper, "source")
+  graph.addEdge(loop, "current", upper, "source")
   graph.addEdge(upper, "result", loop, "result")
   graph.addEdge(loop, "result", consumer, "source")
 

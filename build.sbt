@@ -1,14 +1,15 @@
 name := "jafpl-demo"
 
-version := "0.0.1"
+version := "0.0.2"
 
 scalaVersion := "2.12.3"
 
 resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
-resolvers += "Local Maven Repository" at "file://home/ndw/.m2/repository"
+resolvers += "Private Maven Repository" at "http://nwalsh.com/scratch/repository"
+//resolvers += "Local Maven Repository" at "file://home/ndw/.m2/repository"
 
 libraryDependencies ++= Seq(
-  "com.jafpl" % "jafpl_2.12" % "0.0.11",
+  "com.jafpl" % "jafpl_2.12" % "0.0.14",
   "org.apache.logging.log4j" % "log4j-api" % "2.1",
   "org.apache.logging.log4j" % "log4j-core" % "2.1",
   "org.apache.logging.log4j" % "log4j-slf4j-impl" % "2.1",
