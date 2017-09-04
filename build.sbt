@@ -9,7 +9,7 @@ resolvers += "Private Maven Repository" at "http://nwalsh.com/scratch/repository
 //resolvers += "Local Maven Repository" at "file://home/ndw/.m2/repository"
 
 libraryDependencies ++= Seq(
-  "com.jafpl" % "jafpl_2.12" % "0.0.14",
+  "com.jafpl" % "jafpl_2.12" % "0.0.15",
   "org.apache.logging.log4j" % "log4j-api" % "2.1",
   "org.apache.logging.log4j" % "log4j-core" % "2.1",
   "org.apache.logging.log4j" % "log4j-slf4j-impl" % "2.1",
