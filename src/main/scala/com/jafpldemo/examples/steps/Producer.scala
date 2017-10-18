@@ -1,6 +1,6 @@
 package com.jafpldemo.examples.steps
 
-import com.jafpl.messages.Metadata
+import com.jafpl.messages.{ItemMessage, Metadata}
 import com.jafpl.steps.PortSpecification
 import com.jafpldemo.DefaultStep
 
@@ -14,7 +14,7 @@ class Producer(items: List[String]) extends DefaultStep {
 
   override def run(): Unit = {
     for (item <- items) {
-      consumer.get.receive("result", item, Metadata.STRING)
+      consumer.get.receive("result", new ItemMessage(item, Metadata.STRING))
     }
   }
 }

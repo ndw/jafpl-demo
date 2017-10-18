@@ -2,6 +2,7 @@ package com.jafpldemo.demos.website
 
 import java.io.{File, PrintWriter}
 
+import com.jafpl.config.Jafpl
 import com.jafpl.graph.{Binding, Graph, Node}
 import com.jafpl.runtime.GraphRuntime
 import com.jafpl.util.DefaultErrorListener
@@ -16,7 +17,7 @@ import scala.collection.mutable
 
 object Driver extends App {
   private var config = new PrimitiveRuntimeConfiguration()
-  private var graph = new Graph(new DefaultErrorListener())
+  private var graph = Jafpl.newInstance().newGraph()
   private var pipeline = graph.addPipeline()
   private val varbind = mutable.HashMap.empty[String, Binding]
 
@@ -27,7 +28,7 @@ object Driver extends App {
 
   private def figure0(): Unit = {
     config = new PrimitiveRuntimeConfiguration()
-    graph = new Graph(new DefaultErrorListener())
+    graph = Jafpl.newInstance().newGraph()
     pipeline = graph.addPipeline()
     varbind.clear
 
@@ -49,7 +50,7 @@ object Driver extends App {
 
   private def figure1(): Unit = {
     config = new PrimitiveRuntimeConfiguration()
-    graph = new Graph(new DefaultErrorListener())
+    graph = Jafpl.newInstance().newGraph()
     pipeline = graph.addPipeline()
     varbind.clear
 
@@ -73,7 +74,7 @@ object Driver extends App {
 
   private def pipe1(): Unit = {
     config = new PrimitiveRuntimeConfiguration()
-    graph = new Graph(new DefaultErrorListener())
+    graph = Jafpl.newInstance().newGraph()
     pipeline = graph.addPipeline()
     varbind.clear
 
@@ -85,7 +86,7 @@ object Driver extends App {
 
   private def pipe2(): Unit = {
     config = new PrimitiveRuntimeConfiguration()
-    graph = new Graph(new DefaultErrorListener())
+    graph = Jafpl.newInstance().newGraph()
     pipeline = graph.addPipeline()
     varbind.clear
 

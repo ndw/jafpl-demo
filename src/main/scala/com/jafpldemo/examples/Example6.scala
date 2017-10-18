@@ -1,13 +1,13 @@
 package com.jafpldemo.examples
 
-import com.jafpl.graph.Graph
+import com.jafpl.config.Jafpl
 import com.jafpl.runtime.GraphRuntime
 import com.jafpldemo.config.PrimitiveRuntimeConfiguration
 import com.jafpldemo.examples.steps.{Consumer, Producer, Uppercase}
 
 object Example6 extends App {
   val config = new PrimitiveRuntimeConfiguration()
-  val graph  = new Graph()
+  val graph = Jafpl.newInstance().newGraph()
 
   val pipeline = graph.addPipeline("pipeline")
   val producer = pipeline.addAtomic(new Producer(List("Hello", "There", "World")), "producer")

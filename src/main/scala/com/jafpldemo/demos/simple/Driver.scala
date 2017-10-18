@@ -1,6 +1,6 @@
 package com.jafpldemo.demos.simple
 
-import com.jafpl.graph.Graph
+import com.jafpl.config.Jafpl
 import com.jafpl.runtime.GraphRuntime
 import com.jafpldemo.config.PrimitiveRuntimeConfiguration
 import com.jafpldemo.examples.steps.Producer
@@ -8,7 +8,7 @@ import com.jafpldemo.steps.BufferedSink
 
 object Driver extends App {
   val config = new PrimitiveRuntimeConfiguration()
-  val graph = new Graph()
+  val graph = Jafpl.newInstance().newGraph()
 
   runGraph()
 

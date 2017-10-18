@@ -1,18 +1,21 @@
 package com.jafpldemo
 
 import com.jafpl.graph.Location
-import com.jafpl.messages.Metadata
+import com.jafpl.messages.{BindingMessage, ItemMessage, Message, Metadata}
 import com.jafpl.runtime.RuntimeConfiguration
 import com.jafpl.steps.{BindingSpecification, DataConsumer, PortSpecification, Step}
 
 class DefaultStep extends Step {
   protected var location = Option.empty[Location]
+  protected var _id = "FIXME:"
+
+  override def id: String = _id
 
   override def inputSpec: PortSpecification = PortSpecification.ANY
   override def outputSpec: PortSpecification = PortSpecification.ANY
   override def bindingSpec: BindingSpecification = BindingSpecification.ANY
 
-  override def receiveBinding(variable: String, value: Any): Unit = {
+  override def receiveBinding(message: BindingMessage): Unit = {
     // nop
   }
 
@@ -26,7 +29,7 @@ class DefaultStep extends Step {
     this.location = Some(location)
   }
 
-  override def receive(port: String, item: Any, metadata: Metadata): Unit = {
+  override def receive(port: String, message: Message): Unit = {
     // nop
   }
 

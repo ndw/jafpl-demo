@@ -2,9 +2,9 @@ package com.jafpldemo.demos.calc
 
 import java.io.{File, PrintWriter}
 
-import com.jafpl.graph.{ContainerStart, Graph, Node, Binding}
+import com.jafpl.config.Jafpl
+import com.jafpl.graph.{Binding, Node}
 import com.jafpl.runtime.GraphRuntime
-import com.jafpl.util.DefaultErrorListener
 import com.jafpldemo.config.PrimitiveRuntimeConfiguration
 import com.jafpldemo.demos.calc.steps.{BinaryOp, FCall, Literal, UnaryOp, VarOp}
 import com.jafpldemo.demos.calc.util.{ExprNode, TreeBuilder}
@@ -18,7 +18,7 @@ object Driver extends App {
 
   // Setup our graph object
   private val config = new PrimitiveRuntimeConfiguration()
-  private val graph = new Graph(new DefaultErrorListener())
+  private val graph = Jafpl.newInstance().newGraph()
 
   // Make our pipeline
   private val pipeline = graph.addPipeline()

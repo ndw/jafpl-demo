@@ -52,8 +52,4 @@ class PrimitiveRuntimeConfiguration() extends RuntimeConfiguration() {
     }
     timeout
   }
-
-  override def deliver(message: ItemMessage, consumer: DataConsumer, port: String): Unit = {
-    consumer.receive(port, message.item, message.metadata)
-  }
 }

@@ -1,6 +1,6 @@
 package com.jafpldemo.examples.steps
 
-import com.jafpl.messages.Metadata
+import com.jafpl.messages.{ItemMessage, Message, Metadata}
 import com.jafpl.steps.PortSpecification
 import com.jafpldemo.DefaultStep
 
@@ -12,8 +12,12 @@ class Consumer() extends DefaultStep {
   override def inputSpec: PortSpecification = PortSpecification.SOURCESEQ
   override def outputSpec: PortSpecification = PortSpecification.NONE
 
-  override def receive(port: String, item: Any, metadata: Metadata): Unit = {
-    items += item
+  override def receive(port: String, message: Message): Unit = {
+    message match {
+      case item: ItemMessage =>
+        items += item.item
+      case _ => throw new RuntimeException("Not an item message: " + message)
+    }
   }
 
   override def run(): Unit = {
